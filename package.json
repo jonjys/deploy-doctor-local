@@ -1,0 +1,11 @@
+{
+  "name": "deploy-doctor-local",
+  "version": "0.1.0",
+  "description": "Offline Vercel/Next.js build-failure doctor. Reads your build log and repo, asks an open-weight code model running in Ollama on your own machine. Your code never leaves your laptop.",
+  "bin": { "ddl": "bin/ddl.js" },
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": { "test": "node --test test/" },
+  "license": "MIT",
+  "repository": "github:jonjys/deploy-doctor-local"
+}
