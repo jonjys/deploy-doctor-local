@@ -1,0 +1,25 @@
+
+> build
+> next build
+
+   ▲ Next.js 15.5.4
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 3.8s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/4) ...
+ ⨯ useSearchParams() should be wrapped in a suspense boundary at page "/". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    at g (/home/me/suspense-app/.next/server/chunks/778.js:19:14887)
+    at m (/home/me/suspense-app/.next/server/chunks/778.js:1:30137)
+    at g (/home/me/suspense-app/.next/server/app/page.js:2:7831)
+    at n3 (/home/me/suspense-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:82831)
+    at n6 (/home/me/suspense-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:84601)
+    at n5 (/home/me/suspense-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:104801)
+    at n7 (/home/me/suspense-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:102219)
+    at n8 (/home/me/suspense-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:83183)
+    at n6 (/home/me/suspense-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:84647)
+    at n6 (/home/me/suspense-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:101560)
+Error occurred prerendering page "/". Read more: https://nextjs.org/docs/messages/prerender-error
+Export encountered an error on /page: /, exiting the build.
+ ⨯ Next.js build worker exited with code: 1 and signal: null

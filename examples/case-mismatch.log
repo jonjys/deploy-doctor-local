@@ -1,0 +1,16 @@
+
+> build
+> next build
+
+   ▲ Next.js 15.5.4
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./app/page.js
+Module not found: Can't resolve '@/app/components/Header'
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+> Build failed because of webpack errors

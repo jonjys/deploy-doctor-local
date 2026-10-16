@@ -1,0 +1,63 @@
+
+== deploy-doctor-local ==
+repo:  ~/deploy-doctor-local/examples/suspense-app
+model: qwen2.5-coder:3b via http://127.0.0.1:11434 (local only)
+
+Known patterns:
+  * useSearchParams needs a Suspense boundary
+      - page: /
+      - App Router. Do not suggest getServerSideProps or getStaticProps.
+      - VERIFIED FIX: move the code that calls useSearchParams into its own client component and render it inside <Suspense fallback={...}> from the page.
+
+Diagnosis:
+CAUSE: The `useSearchParams` hook is being used in a server-side rendered page without a Suspense boundary, which is required for client-side rendering.
+
+FIX:
+1. Move the code that calls `useSearchParams` into a client component.
+2. Render this client component inside a `<Suspense>` boundary from the page.
+
+WHY IT WORKED LOCALLY: n/a
+
+VERIFIED FIX:
+1. Create a new client component, e.g., `SearchParamsClient.js`, with the following content:
+   ```jsx
+   // SearchParamsClient.js
+   import { useSearchParams } from 'next/navigation';
+
+   export default function SearchParamsClient() {
+     const [searchParams] = useSearchParams();
+     return (
+       <div>
+         <h1>Search Parameters</h1>
+         <p>Query: {searchParams.get('query')}</p>
+       </div>
+     );
+   }
+   ```
+
+2. Modify the page component, e.g., `page.js`, to render the client component inside a `<Suspense>` boundary:
+   ```jsx
+   // page.js
+   import React from 'react';
+   import SearchParamsClient from './SearchParamsClient';
+
+   export default function Page() {
+     return (
+       <div>
+         <h1>My Page</h1>
+         <Suspense fallback={<div>Loading...</div>}>
+           <SearchParamsClient />
+         </Suspense>
+       </div>
+     );
+   }
+   ```
+
+3. Run the build command again:
+   ```sh
+   npm run build
+   ```
+
+This should resolve the build error and allow the page to render correctly in production.
+
+(730 prompt tokens, 338 output tokens, 22.0s on this machine, 0 bytes sent off it)
