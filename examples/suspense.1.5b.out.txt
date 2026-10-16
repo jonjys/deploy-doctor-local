@@ -1,0 +1,25 @@
+
+== deploy-doctor-local ==
+repo:  ~/deploy-doctor-local/examples/suspense-app
+model: qwen2.5-coder:1.5b via http://127.0.0.1:11434 (local only)
+
+Known patterns:
+  * useSearchParams needs a Suspense boundary
+      - page: /
+      - App Router. Do not suggest getServerSideProps or getStaticProps.
+      - VERIFIED FIX: move the code that calls useSearchParams into its own client component and render it inside <Suspense fallback={...}> from the page.
+
+Diagnosis:
+CAUSE: The `useSearchParams` hook is being used in a client component without a suspense boundary, which is required for server-side rendering (SSR).
+
+FIX:
+1. Move the code that calls `useSearchParams` into its own client component.
+2. Render this client component inside a `<Suspense fallback={...}>` from the page.
+
+WHY IT WORKED LOCALLY: The local build was successful because the `useSearchParams` hook was used in a client component inside a suspense boundary, which is a requirement for local development.
+
+FACTS:
+- The error message indicates that `useSearchParams` should be wrapped in a suspense boundary at the page "/". This is a requirement for server-side rendering (SSR).
+- The `useSearchParams` hook is being used in a client component without a suspense boundary, which is causing the build to fail.
+
+(730 prompt tokens, 176 output tokens, 6.5s on this machine, 0 bytes sent off it)

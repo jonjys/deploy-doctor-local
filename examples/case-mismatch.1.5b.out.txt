@@ -1,0 +1,23 @@
+
+== deploy-doctor-local ==
+repo:  ~/deploy-doctor-local/examples/broken-app
+model: qwen2.5-coder:1.5b via http://127.0.0.1:11434 (local only)
+
+Known patterns:
+  * Import cannot be resolved
+      - import specifier: @/app/components/Header
+      - CASE MISMATCH on disk: code imports "app/components/Header" but the file is "app/components/header.js". macOS and Windows ignore case, Vercel's Linux builders do not.
+      - VERIFIED FIX: change the import to '@/app/components/header', or rename with: git mv app/components/header.js tmp && git mv tmp app/components/Header.js
+
+Diagnosis:
+CAUSE: The import specifier in `app/page.js` is case-sensitive, but the file name is not. The file is named `app/components/header.js`, but the import is written as `@/app/components/Header`.
+
+FIX:
+1. Rename the file to `app/components/Header.js` to match the import.
+2. Update the import in `app/page.js` to `@/app/components/Header`.
+
+WHY IT WORKED LOCALLY: The local file system is case-sensitive, so the file name and import specifier must match exactly. The Vercel Linux builders do not ignore case, so the import specifier must match exactly.
+
+FACTS: The VERIFIED FIX ensures that the file name and import specifier match exactly, which resolves the module not found error.
+
+(400 prompt tokens, 158 output tokens, 5.4s on this machine, 0 bytes sent off it)
