@@ -1,2 +1,12 @@
-{ "name": "suspense-app", "private": true, "scripts": { "build": "next build" },
-  "dependencies": { "next": "15.5.4", "react": "19.1.1", "react-dom": "19.1.1" } }
+{
+  "name": "suspense-app",
+  "private": true,
+  "scripts": {
+    "build": "next build"
+  },
+  "dependencies": {
+    "next": "15.5.9",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  }
+}
